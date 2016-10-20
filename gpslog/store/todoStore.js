@@ -110,7 +110,7 @@ const defaultState = {
     authenticated: false,
     authenticatedUser: undefined,
     locationPermission: false,
-    currentLocation: undefined,
+    currentLocation: {latitude: 56.26392, longitude: 9.501785},
     workPlace: {latitude: 55.62799595, longitude: 12.38850787, title: 'Cap Gemini', description: 'Cap Gemini Sogeti Denmark A/S Delta park'},
     styles: styles,
 };

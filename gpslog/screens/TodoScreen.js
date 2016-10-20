@@ -180,13 +180,6 @@ export default class TodoScreen extends React.Component {
         });
     }
 
-    saveCurrentLocation(latitude, longitude){
-        TodoStore.dispatch({
-            type: 'SET_LOCATION',
-            currentLocation: {latitude: latitude, longitude: longitude},
-        });
-    }
-
     renderScene(route, nav) {
         switch (route.name) {
             case 'taskForm':
@@ -243,8 +236,8 @@ export default class TodoScreen extends React.Component {
                 return (
                     <Map
                         workPlace={this.state.workPlace}
+                        currentLocation={this.state.currentLocation}
                         onShowTodoFrontPage={this.onShowTodoFrontPage.bind(this)}
-                        saveCurrentLocation={this.saveCurrentLocation.bind(this)}
                         styles={this.state.styles}
                     />
                 );

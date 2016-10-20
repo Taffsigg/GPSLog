@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
     StyleSheet,
     View,
@@ -23,8 +24,8 @@ class Map extends React.Component {
 
         this.state = {
             region: {
-                latitude: LATITUDE,
-                longitude: LONGITUDE,
+                latitude: this.props.currentLocation.latitude, // LATITUDE,
+                longitude: this.props.currentLocation.longitude, //LONGITUDE,
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
             },
@@ -47,22 +48,6 @@ class Map extends React.Component {
     onBackPressed(){
         console.log('back pressed');
         this.props.onShowTodoFrontPage();
-    }
-
-    componentDidMount() {
-        this.watchID = navigator.geolocation.watchPosition((position) => {
-            console.log('watch.lat: ', position.coords.latitude, ', watch.lon: ', position.coords.longitude);
-            this.map.animateToRegion({
-                ...this.state.region,
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-            });
-            this.props.saveCurrentLocation(position.coords.latitude, position.coords.longitude)
-        });
-    }
-
-    componentWillUnmount() {
-        navigator.geolocation.clearWatch(this.watchID);
     }
 
     render() {
@@ -151,8 +136,8 @@ const styles = StyleSheet.create({
 
 Map.propTypes = {
     workPlace: React.PropTypes.object.isRequired,
+    currentLocation: React.PropTypes.object.isRequired,
     onShowTodoFrontPage: React.PropTypes.func.isRequired,
-    saveCurrentLocation: React.PropTypes.func.isRequired,
     styles: React.PropTypes.func.isRequired,
 };
 
