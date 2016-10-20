@@ -31,6 +31,16 @@ export default class TodoScreen extends React.Component {
         },
     };
 
+    startLocationWatch(){
+        this.watchID = navigator.geolocation.watchPosition((position) => {
+            console.log('watch lat: ', position.coords.latitude, ', lon: ', position.coords.longitude);
+            TodoStore.dispatch({
+                type: 'SET_LOCATION',
+                currentLocation: {latitude: position.coords.latitude, longitude: position.coords.longitude},
+            });
+        });
+    }
+
     onAddStarted() {
         this.nav.push({
             name: 'taskForm',
@@ -100,9 +110,8 @@ export default class TodoScreen extends React.Component {
         }else{
             Alert.alert(
                 'Login Error', 'Wrong username or password entered!',[{text: 'RETRY', onPress: () => console.log('RETRY Pressed')},]
-            )
+            );
         }
-
     }
 
     onLogout() {
@@ -160,6 +169,9 @@ export default class TodoScreen extends React.Component {
             type: 'SET_LOCATION_PERMISSION',
             locationPermission: isLocationPermitted,
         });
+        if(isLocationPermitted === true){
+            this.startLocationWatch();
+        }
     }
 
     onMap(){
