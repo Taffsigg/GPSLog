@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/gpslog.iml" filepath="$PROJECT_DIR$/.idea/gpslog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GPSLog.iml" filepath="$PROJECT_DIR$/.idea/GPSLog.iml" />
     </modules>
   </component>
 </project>

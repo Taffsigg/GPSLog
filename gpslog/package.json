@@ -1,18 +1,23 @@
 {
-  "name": "gpslog",
-  "version": "0.0.0",
-  "description": "Hello Exponent!",
-  "author": null,
+  "name": "GPSLog",
+  "version": "0.0.1",
   "private": true,
-  "main": "main.js",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
   "dependencies": {
-    "@exponent/ex-navigation": "^1.5.26",
-    "@exponent/samples": "^1.0.2",
-    "@exponent/vector-icons": "^1.0.1",
-    "exponent": "10.0.0",
-    "react": "15.3.1",
-    "react-native": "github:exponentjs/react-native#sdk-10.0.0",
-    "realm": "^0.14.3",
-    "redux": "^3.6.0"
+    "react": "15.3.2",
+    "react-native": "0.36.0"
+  },
+  "jest": {
+    "preset": "jest-react-native"
+  },
+  "devDependencies": {
+    "babel-jest": "16.0.0",
+    "babel-preset-react-native": "1.9.0",
+    "jest": "16.0.2",
+    "jest-react-native": "16.0.0",
+    "react-test-renderer": "15.3.2"
   }
 }
