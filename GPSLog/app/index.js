@@ -1,19 +1,17 @@
 import React from 'react'
 import { Component } from 'react-native';
 import { Provider } from 'react-redux';
-
-import { app } from './routes/app'
-
-import createStore from './config/store'
+import { home } from './routes/home';
+import createStore from './config/store';
 
 const store = createStore();
 
-const Main = () => {
+const App = () => {
     return (
         <Provider store={store}>
-            <app.App />
+            <home.Home />
         </Provider>
     )
 };
 
-export default Main
+export default App

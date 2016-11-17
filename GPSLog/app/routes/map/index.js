@@ -1,5 +1,3 @@
-import map from './mapContainer'
+import map from './map';
 
-export {
-    map
-}
+export {map};

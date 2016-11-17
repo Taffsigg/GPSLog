@@ -1,5 +1,3 @@
-import createTask from './createTaskContainer'
+import createTask from './createTask';
 
-export {
-    createTask
-}
+export {createTask};

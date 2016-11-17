@@ -1,5 +1,3 @@
-import editTask from './editTaskContainer'
+import editTask from './editTask';
 
-export {
-    editTask
-}
+export {editTask};

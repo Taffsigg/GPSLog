@@ -1,5 +1,3 @@
-import taskList from './taskListContainer'
+import taskList from './taskList';
 
-export {
-    taskList
-}
+export {taskList};

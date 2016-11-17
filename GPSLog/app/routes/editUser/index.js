@@ -1,5 +1,3 @@
-import editUser from './editUserContainer'
+import editUser from './editUser';
 
-export {
-    editUser
-}
+export {editUser};

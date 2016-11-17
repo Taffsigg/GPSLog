@@ -1,5 +1,3 @@
-import userHomepage from './userHomepageContainer'
+import userHomepage from './userHomepage';
 
-export {
-    userHomepage
-}
+export {userHomepage};

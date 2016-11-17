@@ -1,5 +1,3 @@
-import login from './loginContainer'
+import login from './login';
 
-export {
-    login
-}
+export {login};
