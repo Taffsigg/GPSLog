@@ -1,17 +1,42 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose  } from 'redux';
 import { Provider } from 'react-redux';
-import todoApp from './reducers';
-import Home from './containers/Home';
+import AppContainer from './AppContainer';
+import thunkMiddleware from 'redux-thunk';
+import * as reducers from './reducers';
+import createLogger from 'redux-logger';
 
-const store = createStore(todoApp);
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+const reducer = combineReducers(reducers);
+//const store = createStoreWithMiddleware(reducer);
+const loggerMiddleware = createLogger({predicate: (getState, action) => __DEV__});
+
+function configureStore(initialState){
+    const enhancer = compose(
+        applyMiddleware(
+            thunkMiddleware,
+            loggerMiddleware,
+        ),
+    );
+    return createStore(reducer, initialState, enhancer);
+}
+
+const store = configureStore({});
+
+const App = () => (
+    <Provider store={store}>
+        <AppContainer />
+    </Provider>
+);
+
+
 
 class App extends Component {
 
     render() {
         return (
             <Provider store={store}>
-                <Home />
+                <AppContainer />
             </Provider>
         );
     }

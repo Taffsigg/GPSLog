@@ -1,105 +1,25 @@
-import{
-    createStore,
-} from 'redux';
-
 import styles from '../../styles/Styles';
 
 const defaultAllTodos = [
-    {
-        task: 'Remove done todo',
-        isImportant: false,
-        state: 'pending',
-        user: 'meh',
-    },
-    {
-        task: 'Realm local database',
-        isImportant: true,
-        state: 'pending',
-        user: 'meh',
-    },
-    {
-        task: 'Export app away from exponent',
-        isImportant: false,
-        state: 'pending',
-        user: 'meh',
-    },
-    {
-        task: 'Redux multiple reducers',
-        isImportant: true,
-        state: 'pending',
-        user: 'meh',
-    },
-    {
-        task: 'smoke weed everydaaay',
-        isImportant: false,
-        state: 'pending',
-        user: 'frederik',
-    },
-    {
-        task: 'get map up and running',
-        isImportant: true,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'Interactive map',
-        isImportant: true,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'one todo per user',
-        isImportant: true,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'create user',
-        isImportant: true,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'change password',
-        isImportant: true,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'todo list',
-        isImportant: false,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'isImportant function',
-        isImportant: false,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'Simple login',
-        isImportant: false,
-        state: 'done',
-        user: 'meh',
-    },
-    {
-        task: 'Master CSS file',
-        isImportant: true,
-        state: 'done',
-        user: 'meh',
-    },
+    { task: 'Realm local database', isImportant: true,  state: 'pending', user: 'meh', },
+    { task: 'Redux multiple',       isImportant: true,  state: 'pending', user: 'meh', },
+    { task: 'Remove done todo',     isImportant: false, state: 'pending', user: 'meh', },
+    { task: 'Export app away ',     isImportant: false, state: 'pending', user: 'meh', },
+    { task: 'smoke weed',           isImportant: false, state: 'pending', user: 'frederik', },
+    { task: 'get map up and',       isImportant: true,  state: 'done', user: 'meh', },
+    { task: 'Interactive map',      isImportant: true,  state: 'done', user: 'meh', },
+    { task: 'one todo per user',    isImportant: true,  state: 'done', user: 'meh', },
+    { task: 'create user',          isImportant: true,  state: 'done', user: 'meh', },
+    { task: 'change password',      isImportant: true,  state: 'done', user: 'meh', },
+    { task: 'Master CSS file',      isImportant: true,  state: 'done', user: 'meh', },
+    { task: 'todo list',            isImportant: false, state: 'done', user: 'meh', },
+    { task: 'isImportant function', isImportant: false, state: 'done', user: 'meh', },
+    { task: 'Simple login',         isImportant: false, state: 'done', user: 'meh', },
 ];
 
 const defaultUsers = [
-    {
-        loginName: 'meh',
-        loginPassword: 'meh',
-    },
-    {
-        loginName: 'frederik',
-        loginPassword: 'fred1101',
-    },
+    { loginName: 'meh', loginPassword: 'meh', },
+    { loginName: 'frederik', loginPassword: 'fred1101', },
 ];
 
 const defaultState = {
@@ -123,7 +43,7 @@ function getFilteredTodos(allTodos, filter, user) {
     }
 }
 
-function todos(state = defaultState, action) {
+const todos = (state = defaultState, action) => {
     switch (action.type) {
         case 'ADD_TODO':
             const allTodos = state.todos.concat([{
@@ -186,13 +106,7 @@ function todos(state = defaultState, action) {
                 todos: allTodosIsImportant,
                 filteredTodos: getFilteredTodos(allTodosIsImportant, state.filter, state.authenticatedUser.loginName),
             });
-        case 'AUTHENTICATE':
-            const authenticatedUser = state.users.find(x => x.loginName === action.loginName && x.loginPassword === action.loginPassword);
-            return Object.assign({}, state, {
-                filteredTodos: getFilteredTodos(state.todos, state.filter, authenticatedUser.loginName),
-                authenticated: authenticatedUser !== undefined,
-                authenticatedUser: authenticatedUser,
-            });
+
         case 'CHANGE_PASSWORD':
             const newPasswordForUser = Object.assign({}, state.authenticatedUser, {
                 loginPassword: action.loginPassword,
@@ -235,4 +149,4 @@ function todos(state = defaultState, action) {
 }
 
 
-export default createStore(todos);
+export default todos;

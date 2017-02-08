@@ -12,17 +12,12 @@ import TodoFrontPage from '../components/TodoFrontPage';
 import ChangePassword from '../components/ChangePassword';
 import CreateUser from '../components/CreateUser';
 import Map from '../components/Map';
-import TodoStore from '../reducers/todoStore';
 
-export default class Home extends React.Component {
+export default class Home extends React.Component  {
     constructor(props, context) {
         super(props, context);
-        this.state = TodoStore.getState();
-
-        TodoStore.subscribe(() => {
-            this.setState(TodoStore.getState());
-        });
     }
+
 
     static route = {
         navigationBar: {
@@ -33,10 +28,11 @@ export default class Home extends React.Component {
     startLocationWatch(){
         this.watchID = navigator.geolocation.watchPosition((position) => {
             console.log('watch lat: ', position.coords.latitude, ', lon: ', position.coords.longitude);
-            TodoStore.dispatch({
-                type: 'SET_LOCATION',
-                currentLocation: {latitude: position.coords.latitude, longitude: position.coords.longitude},
-            });
+            //dispatch({
+            //    type: 'SET_LOCATION',
+            //    currentLocation: {latitude: position.coords.latitude, longitude: position.coords.longitude},
+            //});
+            this.props.actions.setLocation(position.coords.latitude, position.coords.longitude);
         });
     }
 
@@ -57,7 +53,7 @@ export default class Home extends React.Component {
             task = '-';
         }
         console.log('a task was added: ', task);
-        TodoStore.dispatch({
+        dispatch({
             type: 'ADD_TODO',
             task,
             isImportant,
@@ -68,13 +64,13 @@ export default class Home extends React.Component {
     onDone(todo) {
         if(this.state.filter === "pending"){
             console.log('todo was completed: ', todo.task);
-            TodoStore.dispatch({
+            dispatch({
                 type: 'DONE_TODO',
                 todo,
             });
         }else{ // this.state.filter = "done"
             console.log('done todo was set to pending: ', todo.task);
-            TodoStore.dispatch({
+            dispatch({
                 type: 'NOT_DONE_TODO',
                 todo,
             });
@@ -83,14 +79,14 @@ export default class Home extends React.Component {
 
     isImportant(todo) {
         console.log('todo: ', todo.task, ', isImportant: ', todo.isImportant);
-        TodoStore.dispatch({
+        dispatch({
             type: 'TOGGLE_IS_IMPORTANT',
             todo,
         });
     }
 
     onToggle() {
-        TodoStore.dispatch({
+        dispatch({
             type: 'TOGGLE_STATE',
         });
     }
@@ -98,7 +94,7 @@ export default class Home extends React.Component {
     onLogin(loginName, loginPassword) {
         const authenticatedUser = this.state.users.find(x => x.loginName === loginName && x.loginPassword === loginPassword);
         if(authenticatedUser !== undefined){
-            TodoStore.dispatch({
+            dispatch({
                 type: 'AUTHENTICATE',
                 loginName: loginName,
                 loginPassword: loginPassword,
@@ -114,7 +110,7 @@ export default class Home extends React.Component {
     }
 
     onLogout() {
-        TodoStore.dispatch({
+        dispatch({
             type: 'LOGOUT',
         });
         this.nav.pop();
@@ -140,7 +136,7 @@ export default class Home extends React.Component {
         Alert.alert(
             'Password changed', 'The password have been changed',[{text: 'OK', onPress: () => console.log('OK Pressed')},]
         );
-        TodoStore.dispatch({
+        dispatch({
             type: 'CHANGE_PASSWORD',
             loginPassword: newPassword,
         });
@@ -154,7 +150,7 @@ export default class Home extends React.Component {
     }
 
     submitNewUser(newUserName, newUserPassword){
-        TodoStore.dispatch({
+        dispatch({
             type: 'ADD_USER',
             newUser: newUserName,
             newPassword: newUserPassword,
@@ -164,7 +160,7 @@ export default class Home extends React.Component {
 
     onSetlocationPermission(isLocationPermitted){
         console.log('onSetlocationPermission isLocationPermitted: ', isLocationPermitted, 'store: ', this.state.locationPermission);
-        TodoStore.dispatch({
+        dispatch({
             type: 'SET_LOCATION_PERMISSION',
             locationPermission: isLocationPermitted,
         });
@@ -178,6 +174,8 @@ export default class Home extends React.Component {
             name: 'map',
         });
     }
+
+
 
     renderScene(route, nav) {
         switch (route.name) {
@@ -279,6 +277,4 @@ export default class Home extends React.Component {
             />
         );
     }
-
-
 }
